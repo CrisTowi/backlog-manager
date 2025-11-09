@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { Providers } from '@/components/Providers'
 import { PWAMeta } from '@/components/PWAMeta'
@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   title: 'Gaming Backlog Manager',
   description: 'Track and manage your gaming backlog to avoid spending on games you won\'t play',
   manifest: '/manifest.json',
-  themeColor: '#6366f1',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -21,13 +20,15 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: 'cover',
-  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#6366f1',
 }
 
 export default function RootLayout({
@@ -37,6 +38,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Backlog Manager" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
+      </head>
       <body>
         <PWAMeta />
         <Providers>
