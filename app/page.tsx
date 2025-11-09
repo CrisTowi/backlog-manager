@@ -34,7 +34,7 @@ export default function Home() {
     }
 
     if (platformFilter !== 'all') {
-      filtered = filtered.filter((game) => game.platform === platformFilter || (!game.platform && platformFilter === 'all'));
+      filtered = filtered.filter((game) => game.platform === platformFilter);
     }
 
     if (searchQuery.trim()) {
