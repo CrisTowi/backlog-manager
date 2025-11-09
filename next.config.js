@@ -1,16 +1,26 @@
+const pwaConfig = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'offlineCache',
+        expiration: {
+          maxEntries: 200,
+        },
+      },
+    },
+  ],
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  webpack: pwaConfig.webpack,
 }
 
-// Only apply PWA in production
-if (process.env.NODE_ENV !== 'development') {
-  const withPWA = require('next-pwa')({
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-  })
-  module.exports = withPWA(nextConfig)
-} else {
-  module.exports = nextConfig
-}
+module.exports = nextConfig
